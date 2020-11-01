@@ -8,20 +8,24 @@ const Pagination = ({ pages, pageNumber }) => {
 
 	for (let i = 1; i < pagesToBeShown * 2 && page < pages; i++) {
 		content.push(
-			<Link key={page} to={`/${page}`} className={pageNumber === page ? "active" : null}>
-				Page {page}
-			</Link>
+			<li className="page-item">
+				<Link key={page} to={`/${page}`} className={pageNumber === page ? "active" : "page-link"}>
+					Page {page}
+				</Link>
+			</li>
 		);
 		page++;
 	}
 
 	content.push(
-		<Link key={pages} to={`/${pages}`} className={pageNumber === pages ? "active" : null}>
-			Page {pages}
-		</Link>
+		<li className="page-item">
+			<Link key={pages} to={`/${pages}`} className={pageNumber === pages ? "active" : "page-link"}>
+				Page {pages}
+			</Link>
+		</li>
 	);
 
-	return content;
+	return <ul className="pagination mt-2 d-flex justify-content-center">{content}</ul>;
 };
 
 export default Pagination;

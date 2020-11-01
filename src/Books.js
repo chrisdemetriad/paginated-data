@@ -1,6 +1,7 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
 import Pagination from "./components/Pagination";
+import { Button, ListGroup, InputGroup, FormControl } from "react-bootstrap";
 
 import { useParams } from "react-router-dom";
 
@@ -53,22 +54,40 @@ const Books = () => {
 	return (
 		<>
 			<p>Page number is {pageNumber}</p>
+
 			{search && (
 				<div>
 					<p>Search results shown from {search}</p>
-					<button onClick={clearSearchTerm}>Clear search term</button>
+					{/* 
+					<Button onClick={clearSearchTerm} variant="primary">
+						Clear search term
+					</Button> */}
 				</div>
 			)}
 			<form onSubmit={handleSubmit}>
-				<input onChange={handleChange} type="text" placeholder={search} />
+				<InputGroup className="mb-3">
+					<FormControl onChange={handleChange} type="text" placeholder={search} placeholder="Type here.." />
+					<InputGroup.Append>
+						{search && (
+							<Button variant="outline-danger" onClick={clearSearchTerm}>
+								Clear search term
+							</Button>
+						)}
+					</InputGroup.Append>
+					<InputGroup.Append>
+						<Button variant="outline-secondary">Search</Button>
+					</InputGroup.Append>
+				</InputGroup>
 			</form>
-			{data.map((book, index) => (
-				<div key={book.id}>
-					<p>
+			{search && <p>Search results shown from {search}</p>}
+			<ListGroup>
+				{data.map((book, index) => (
+					<ListGroup.Item className="book" key={book.id}>
 						ID:{book.id}, Title: {book.book_title}
-					</p>
-				</div>
-			))}
+					</ListGroup.Item>
+				))}
+			</ListGroup>
+
 			<Pagination pages={pages} pageNumber={pageNumber} />
 		</>
 	);
