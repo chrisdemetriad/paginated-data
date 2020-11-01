@@ -51,17 +51,21 @@ const App = () => {
 	};
 
 	return (
-		<main className="App">
-			<h3>Books</h3>
-			<p>Search results shown from {search} </p>
-			<button onClick={clearSearchTerm}>Clear search term</button>
+		<main>
+			{search && (
+				<div>
+					<p>Search results shown from {search}</p>
+					<button onClick={clearSearchTerm}>Clear search term</button>
+				</div>
+			)}
+
 			<form onSubmit={handleSubmit}>
 				<input onChange={handleChange} type="text" placeholder={search} />
 			</form>
 			{data.map((book, index) => (
 				<div key={book.id}>
 					<p>
-						{index + 1} - {book.id}, {book.book_title}, {book.book_pages} pages, published in {book.book_publication_year} in {book.book_publication_city}, {book.book_publication_country}
+						ID:{book.id}, Title: {book.book_title}
 					</p>
 				</div>
 			))}

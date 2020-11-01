@@ -14,11 +14,11 @@ const Pagination = ({ pages, pageNumber }) => {
 		page++;
 	}
 
-	content.unshift(
-		<a key={0} href="/">
-			Home
-		</a>
-	);
+	// content.unshift(
+	// 	<a key={0} href="/">
+	// 		Home
+	// 	</a>
+	// );
 	content.push(
 		<a key={pages} href={pages}>
 			Page {pages}
