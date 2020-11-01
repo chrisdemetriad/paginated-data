@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Pagination = ({ pages, pageNumber }) => {
 	let content = [];
@@ -7,22 +8,17 @@ const Pagination = ({ pages, pageNumber }) => {
 
 	for (let i = 1; i < pagesToBeShown * 2 && page < pages; i++) {
 		content.push(
-			<a key={page} href={page}>
+			<Link key={page} to={`/${page}`} className={pageNumber === page ? "active" : null}>
 				Page {page}
-			</a>
+			</Link>
 		);
 		page++;
 	}
 
-	// content.unshift(
-	// 	<a key={0} href="/">
-	// 		Home
-	// 	</a>
-	// );
 	content.push(
-		<a key={pages} href={pages}>
+		<Link key={pages} to={`/${pages}`} className={pageNumber === pages ? "active" : null}>
 			Page {pages}
-		</a>
+		</Link>
 	);
 
 	return content;
