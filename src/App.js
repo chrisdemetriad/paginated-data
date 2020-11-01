@@ -10,7 +10,6 @@ const App = () => {
 		<Router>
 			<main className="container">
 				<Route exact path="/">
-					{/* <Books /> */}
 					<Redirect to="/1" />
 				</Route>
 				<Route path="/:pageNumber">

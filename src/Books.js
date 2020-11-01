@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Pagination from "./components/Pagination";
 import { Button, ListGroup, InputGroup, FormControl, Badge } from "react-bootstrap";
+import { useParams, withRouter } from "react-router-dom";
+import { MdClear } from "react-icons/md";
 
-import { useParams } from "react-router-dom";
-
-const Books = () => {
+const Books = (props) => {
 	const { pageNumber } = useParams();
 
 	const [data, setData] = useState([]);
@@ -14,10 +14,10 @@ const Books = () => {
 	const url = "http://nyx.vima.ekt.gr:3000/api/books";
 
 	useEffect(() => {
-		getData();
+		getData(false);
 	}, [pageNumber]);
 
-	const getData = async () => {
+	const getData = async (mustRedirect) => {
 		const data = await fetch(url, {
 			method: "POST",
 			headers: {
@@ -34,6 +34,10 @@ const Books = () => {
 
 		setPages(pages);
 		setData(response.books);
+
+		if (mustRedirect) {
+			props.history.push("/");
+		}
 	};
 
 	const handleChange = (event) => {
@@ -42,33 +46,40 @@ const Books = () => {
 	};
 
 	const handleSubmit = (event) => {
-		getData(search);
 		event.preventDefault();
+		getData(true);
 	};
 
 	const clearSearchTerm = () => {
 		setSearch(localStorage.setItem("searchTerm", ""));
+		getData(true);
 	};
 
 	return (
 		<>
-			<h2 className="mt-4 mb-4">Book List</h2>
+			<h2 onClick={clearSearchTerm} title="Go home and clear search" className="mt-4 mb-4">
+				Book List
+			</h2>
+
 			<form onSubmit={handleSubmit}>
 				<InputGroup className="mb-3">
-					<FormControl onChange={handleChange} type="text" placeholder={search} placeholder="Type here.." />
 					<InputGroup.Append>
 						{search && (
-							<Button variant="outline-secondary" onClick={clearSearchTerm}>
-								Clear search term
+							<Button variant="outline-secondary" title="Clear search">
+								<MdClear onClick={clearSearchTerm} />
 							</Button>
 						)}
 					</InputGroup.Append>
+					<FormControl onChange={handleChange} type="text" placeholder={search} />
+
 					<InputGroup.Append>
-						<Button variant="primary">Search</Button>
+						<Button type="submit" variant="primary">
+							Search
+						</Button>
 					</InputGroup.Append>
 				</InputGroup>
 			</form>
-			{search && <p>Search results shown from {search}</p>}
+			{search ? <p>Search results shown for {search}</p> : <p>No search filters applied</p>}
 			<ListGroup>
 				{data.map((book, index) => (
 					<ListGroup.Item className="book" key={book.id}>
@@ -85,4 +96,4 @@ const Books = () => {
 	);
 };
 
-export default Books;
+export default withRouter(Books);
