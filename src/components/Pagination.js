@@ -8,9 +8,9 @@ const Pagination = ({ pages, pageNumber }) => {
 
 	for (let i = 1; i < pagesToBeShown * 2 && page < pages; i++) {
 		content.push(
-			<li className="page-item">
-				<Link key={page} to={`/${page}`} className={pageNumber === page ? "active" : "page-link"}>
-					Page {page}
+			<li key={page} className={pageNumber == page ? "page-item active" : "page-item"}>
+				<Link to={`/${page}`} className="page-link">
+					{page}
 				</Link>
 			</li>
 		);
@@ -18,9 +18,9 @@ const Pagination = ({ pages, pageNumber }) => {
 	}
 
 	content.push(
-		<li className="page-item">
-			<Link key={pages} to={`/${pages}`} className={pageNumber === pages ? "active" : "page-link"}>
-				Page {pages}
+		<li key={pages} className={pageNumber == page ? "page-item active" : "page-item"}>
+			<Link to={`/${pages}`} className="page-link">
+				{pages}
 			</Link>
 		</li>
 	);
