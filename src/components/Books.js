@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Pagination from "./Pagination";
+import Pagination from "./components/Pagination";
 import Header from "./Header";
 import { useParams, withRouter } from "react-router-dom";
 import { ListGroup, Badge } from "react-bootstrap";
