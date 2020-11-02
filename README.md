@@ -4,6 +4,6 @@ Data is being fetched from a JSON API and displayed. Pagination and search have 
 
 ## How to run
 
-Run `npm start` in the project directory, then open [http://localhost:3000](http://localhost:3000).
+Navigate to the the project directory, run `npm install` then `npm start` and open [http://localhost:3000](http://localhost:3000).
 
 !["Demo"](https://github.com/chrisdemetriad/paginated-data/blob/fetch-api/public/demo.gif)
