@@ -2,7 +2,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/custom-theme.scss";
 
-import Books from "./Books";
+import Books from "./components/Books";
 import { BrowserRouter as Router, Redirect } from "react-router-dom";
 
 const App = () => {

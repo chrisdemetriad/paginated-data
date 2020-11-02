@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Pagination from "./components/Pagination";
-import { Button, ListGroup, InputGroup, FormControl, Badge } from "react-bootstrap";
+import Pagination from "./Pagination";
+import Header from "./Header";
 import { useParams, withRouter } from "react-router-dom";
-import { MdClear } from "react-icons/md";
+import { ListGroup, Badge } from "react-bootstrap";
 
 const Books = (props) => {
 	const { pageNumber } = useParams();
@@ -44,51 +44,13 @@ const Books = (props) => {
 		}
 	};
 
-	const handleChange = (event) => {
-		setSearch(event.target.value);
-		localStorage.setItem("searchTerm", event.target.value);
-	};
-
-	const handleSubmit = (event) => {
-		event.preventDefault();
-		getData(true);
-	};
-
-	const clearSearchTerm = () => {
-		localStorage.removeItem("searchTerm");
-		setSearch("");
-		getData(true);
-	};
-
 	if (!data) {
 		return <p className="mt-5 text-center">Loading..</p>;
 	}
 
 	return (
 		<>
-			<h2 onClick={clearSearchTerm} title="Go home and clear search" className="mt-4 mb-4">
-				Book List
-			</h2>
-
-			<form onSubmit={handleSubmit}>
-				<InputGroup className="mb-3">
-					<InputGroup.Append>
-						{search && (
-							<Button variant="outline-secondary" title="Clear search">
-								<MdClear onClick={clearSearchTerm} />
-							</Button>
-						)}
-					</InputGroup.Append>
-					<FormControl onChange={handleChange} type="text" placeholder={search} />
-
-					<InputGroup.Append>
-						<Button type="submit" variant="primary">
-							Search
-						</Button>
-					</InputGroup.Append>
-				</InputGroup>
-			</form>
-			{search ? <p>Search results shown for {search}</p> : <p>No search filters applied</p>}
+			<Header search={search} setSearch={setSearch} getData={getData} />
 			{data && (
 				<ListGroup>
 					{data.map((book, index) => (
